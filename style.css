@@ -1,0 +1,444 @@
+/* =============================================================================
+   RESET & BASE STYLES
+   ============================================================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+.page {
+  display: none;
+  min-height: 100vh;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.page.active {
+  display: block !important;
+}
+
+#home-page, #booking-page {
+  background-image: url('anh.jpg');
+}
+
+.overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+/* =============================================================================
+   TRANG CHỦ
+   ============================================================================= */
+.home-container {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 20px;
+  color: #fff;
+  text-align: center;
+}
+
+.brand-name {
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.registered-symbol {
+  font-size: 1rem;
+  vertical-align: super;
+}
+
+.brand-address {
+  font-size: 1rem;
+  margin-top: 8px;
+  opacity: 0.9;
+}
+
+.main-buttons {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.nav-card {
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  padding: 15px;
+}
+
+.nav-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.35);
+  border-color: #fff;
+}
+
+.nav-card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.creator-footer {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* =============================================================================
+   HEADER TRANG PHỤ & MENU GRID
+   ============================================================================= */
+.page-header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.page-header.white-text {
+  background: transparent;
+  color: #fff;
+  position: relative;
+  z-index: 2;
+}
+
+.back-btn {
+  padding: 8px 16px;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.menu-item {
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.menu-item-price {
+  color: #e67e22;
+  font-weight: bold;
+}
+
+/* =============================================================================
+   SƠ ĐỒ BÀN & TRẠNG THÁI BÀN KHÓA (.LOCKED)
+   ============================================================================= */
+.booking-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.vip-section {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 25px;
+  justify-content: center;
+}
+
+.table-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: bold;
+}
+
+.table-card:hover {
+  background: #fff;
+  transform: scale(1.03);
+}
+
+.vip-table {
+  flex: 1;
+  max-width: 450px;
+  min-height: 100px;
+  border: 2px solid #f1c40f;
+  background: rgba(255, 249, 230, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.vip-table span {
+  font-size: 0.8rem;
+  font-weight: normal;
+  color: #666;
+  margin-top: 5px;
+}
+
+.normal-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 15px;
+}
+
+.normal-section .table-card {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* KHÓA BÀN MÀU ĐỎ ĐƯỢC ƯU TIÊN HIỂN THỊ CAO NHẤT */
+.table-card.locked, 
+.table-item.locked,
+.locked {
+  background-color: #e74c3c !important;
+  color: #ffffff !important;
+  border-color: #c0392b !important;
+  cursor: not-allowed !important;
+  opacity: 0.85 !important;
+  pointer-events: none !important;
+}
+
+.table-card.locked h3,
+.table-card.locked p,
+.table-card.locked span,
+.locked * {
+  color: #ffffff !important;
+}
+
+/* =============================================================================
+   MODAL POPUP & FORM ĐẶT MÓN
+   ============================================================================= */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.modal.active {
+  display: flex !important;
+}
+
+.modal-content {
+  background: #fff;
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 25px;
+  border-radius: 12px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.large-modal {
+  max-width: 800px !important;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.modal-body-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.form-col h4, .menu-col h4 {
+  margin-bottom: 10px;
+  color: #2c3e50;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 5px;
+}
+
+.form-group {
+  margin-top: 12px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 9px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.date-time-group {
+  display: flex;
+  gap: 10px;
+}
+
+.total-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 6px;
+  margin-top: 15px;
+}
+
+.total-box strong {
+  color: #e74c3c;
+  font-size: 1.2rem;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  background: #27ae60;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.select-menu-list {
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.item-select-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.item-info-text span {
+  display: block;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  background: #eee;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.qty-btn:hover {
+  background: #ddd;
+}
+
+/* =============================================================================
+   VIETQR MODAL (RESPONSIVE CHUẨN ĐIỆN THOẠI)
+   ============================================================================= */
+.qr-box {
+  text-align: center;
+}
+
+.qr-note {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.success-btn {
+  background: #27ae60 !important;
+}
+
+#qr-modal .modal-content {
+  max-width: 380px !important;
+  padding: 20px;
+  text-align: center;
+}
+
+#qr-code-img {
+  width: 100% !important;
+  max-width: 250px !important;
+  height: auto !important;
+  display: block;
+  margin: 10px auto 15px auto;
+  object-fit: contain;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+/* RESPONSIVE CHO MÀN HÌNH NHỎ (MOBILE) */
+@media (max-width: 768px) {
+  .modal-body-grid {
+    grid-template-columns: 1fr;
+    max-height: 65vh;
+    overflow-y: auto;
+  }
+
+  .vip-section {
+    flex-direction: column;
+  }
+
+  .brand-name {
+    font-size: 1.8rem;
+  }
+}

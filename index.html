@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quán Ăn - Đặt Bàn & Đặt Món</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- TRANG CHỦ -->
+  <section id="home-page" class="page active">
+    <div class="overlay"></div>
+    <div class="home-container">
+      <header class="restaurant-header">
+        <h1 class="brand-name">KSOR TIN SÂN VƯỜN QUÁN <span class="registered-symbol">®</span></h1>
+        <p class="brand-address">Địa chỉ: 497 VÕ VĂN KIỆT , PHƯỜNG THỐNG NHẤT, GIA LAI</p>
+        <p class="brand-phone">Hotline / Zalo: <strong>0918418112</strong></p>
+      </header>
+
+      <div class="main-buttons">
+        <div class="nav-card" onclick="openPage('menu-page')">
+          <h2>MENU</h2>
+          <p>Xem danh sách món ăn</p>
+        </div>
+        <div class="nav-card" onclick="openPage('booking-page')">
+          <h2>ĐẶT BÀN</h2>
+          <p>Chọn bàn & chọn món</p>
+        </div>
+      </div>
+
+      <footer class="creator-footer">
+        <p>Thiết kế bởi: <strong>BAOTON TECH</strong></p>
+      </footer>
+    </div>
+  </section>
+
+  <!-- TRANG MENU THAM KHẢO -->
+  <section id="menu-page" class="page">
+    <div class="page-header">
+      <button class="back-btn" onclick="openPage('home-page')">← Quay lại</button>
+      <h2>DANH SÁCH MENU (30 MÓN)</h2>
+    </div>
+    <div class="menu-grid" id="menu-container"></div>
+  </section>
+
+  <!-- TRANG SƠ ĐỒ CHỌN BÀN -->
+  <section id="booking-page" class="page">
+    <div class="overlay"></div>
+    <div class="booking-container">
+      <div class="page-header white-text">
+        <button class="back-btn" onclick="openPage('home-page')">← Quay lại</button>
+        <h2>SƠ ĐỒ CHỌN BÀN</h2>
+      </div>
+
+      <!-- Khu vực VIP -->
+      <div class="vip-section">
+        <div class="table-card vip-table" onclick="openBookingModal('Bàn VIP 1')">
+          <h3>BÀN VIP 1</h3>
+          <span>Sức chứa lớn - Không gian riêng</span>
+        </div>
+        <div class="table-card vip-table" onclick="openBookingModal('Bàn VIP 2')">
+          <h3>BÀN VIP 2</h3>
+          <span>Sức chứa lớn - Không gian riêng</span>
+        </div>
+      </div>
+
+      <!-- Khu vực bàn thường -->
+      <div class="normal-section">
+        <div class="table-card" onclick="openBookingModal('CHÒI 01')">CHÒI 01</div>
+        <div class="table-card" onclick="openBookingModal('CHÒI 02')">CHÒI 02</div>
+        <div class="table-card" onclick="openBookingModal('CHÒI 03')">CHÒI 03</div>
+        <div class="table-card" onclick="openBookingModal('CHÒI 04')">CHÒI 04</div>
+        <div class="table-card" onclick="openBookingModal('CHÒI 05')">CHÒI 05</div>
+        <div class="table-card" onclick="openBookingModal('Bàn 06')">BÀN 06</div>
+        <div class="table-card" onclick="openBookingModal('Bàn 07')">BÀN 07</div>
+        <div class="table-card" onclick="openBookingModal('Bàn 08')">BÀN 08</div>
+        <div class="table-card" onclick="openBookingModal('Bàn 09')">BÀN 09</div>
+        <div class="table-card" onclick="openBookingModal('Bàn 10')">BÀN 10</div>
+      </div>
+    </div>
+
+    <!-- POPUP 2 CỘT: ĐIỀN THÔNG TIN + CHỌN MÓN -->
+    <div id="booking-modal" class="modal">
+      <div class="modal-content large-modal">
+        <span class="close-btn" onclick="closeBookingModal()">&times;</span>
+        <h3>ĐẶT BÀN & MÓN: <span id="selected-table-name">---</span></h3>
+        
+        <form id="google-sheet-form" class="modal-body-grid">
+          <input type="hidden" id="form-table" name="Bàn">
+          <input type="hidden" id="form-food-list" name="Món đã chọn">
+          <input type="hidden" id="form-total-amount" name="Tổng tiền">
+
+          <!-- CỘT TRÁI: THÔNG TIN KHÁCH HÀNG -->
+          <div class="form-col">
+            <h4>1. Thông tin người đặt</h4>
+            
+            <div class="form-group">
+              <label>Họ và Tên:</label>
+              <input type="text" id="form-name" required placeholder="Nhập họ và tên">
+            </div>
+
+            <div class="form-group">
+              <label>Số Điện Thoại:</label>
+              <input type="tel" id="form-phone" required placeholder="Nhập số điện thoại">
+            </div>
+
+            <div class="form-group">
+              <label>Ngày & Giờ Đặt:</label>
+              <div class="date-time-group">
+                <input type="date" id="form-date" required>
+                <input type="time" id="form-time" required>
+              </div>
+            </div>
+
+            <div class="total-box">
+              <span>Tổng tiền món:</span>
+              <strong id="total-price-display">0đ</strong>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="generateQRCode()">TIẾP TỤC THANH TOÁN (QR CODE)</button>
+          </div>
+
+          <!-- CỘT PHẢI: CHỌN MÓN ĂN -->
+          <div class="menu-col">
+            <h4>2. Chọn món ăn (Tùy chọn)</h4>
+            <div class="select-menu-list" id="modal-menu-select"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- POPUP MÃ QR CHUYỂN KHOẢN -->
+    
+<div id="qr-modal" class="modal">
+  <div class="modal-content">
+    <h3>Thanh Toán Đặt Bàn</h3>
+    <p class="qr-desc">Quét mã QR bằng App Ngân Hàng để hoàn tất:</p>
+    
+    <div class="qr-box">
+      <img id="qr-code-img" src="" alt="VietQR Code">
+    </div>
+
+    <!-- Thông báo trạng thái đang chờ -->
+    <div class="payment-status-box">
+      <p class="status-waiting">⏳ <strong>Đang chờ chuyển khoản...</strong></p>
+      <small style="color: #666; display: block; margin-top: 5px;">
+        Vui lòng giữ nguyên màn hình này. Hệ thống sẽ tự động xác nhận ngay khi nhận được tiền!
+      </small>
+    </div>
+
+    <div class="modal-actions" style="margin-top: 15px;">
+      <!-- Nút Hủy / Đóng nếu khách đổi ý không muốn đặt nữa -->
+      <button type="button" class="btn-close" onclick="closeModal()">Hủy Giao Dịch</button>
+    </div>
+  </div>
+</div>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
